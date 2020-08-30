@@ -1,6 +1,7 @@
 gcloud config set project smooth-ocean-179719
 gcloud config set compute/zone us-central1-a
 
+gcloud container clusters get-credentials masterserver --zone us-central1-c ---------> need to copy from gcloud terminal
 
 Prerequisite
 Kubernetes Cluster up and running with master and node or GKE or EKS or any other type of k8s setup.
@@ -66,14 +67,14 @@ metadata:
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
 spec:
   rules:
-  - host: vijayloud.com
+  - host: vijayloud.com -------------------------->domain name should be same but under app can be different
     http:
       paths:
       - path: /hello
         backend:
           serviceName: hello-app
           servicePort: 8080
-  - host: vijayloud1.com
+  - host: vijayloud.com ------------------------------>domain name should be same but under app can be different
     http:
       paths:
       - path: /hello1
@@ -89,6 +90,10 @@ kubectl apply -f ingress-resource.yml
 3- Check in backend
 
 kubectl get ingress ingress-resource
-4- Check in browser
+
+4-add this public id address entry in /etc/hosts file,
+35.232.62.124		vijayloud.com
+
+5- Check in browser
 
 http://external-ip-of-ingress-controller/hello
